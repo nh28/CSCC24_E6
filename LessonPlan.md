@@ -8,7 +8,7 @@ Let us recall how these generics in Java look like:
 - Generic functions in Java: to create a generic function in Java we must include angled brackets with one or more variables to specify generic types. For example, [insert example] With generics in Java, we are able to pass Lists of any types, including two Lists of different types. For example, if we called demoMultGenerics with a list of strings and a list of ints.
 - Generic classes in Java: Similarly, generic java classes, in our declaration of the name of our class we can add angled brackets to specify generic types. With java generics for classes, we can create objects with the same methods and data members, just using different types, but without repeating the code. Here is a simple example:
 
-*Note: all types used in generics must be non-primitive types. More detail will be provided on why when we talk about what happens at compile time.*
+>###### *Note: all types used in generics must be non-primitive types. More detail will be provided on why when we talk about what happens at compile time.*
 
 ## Introduction to Templates: Generics in C++
 
@@ -16,14 +16,14 @@ Let us recall how these generics in Java look like:
 
 We saw how we were able to create generic functions in Java, and now we want to know if there is an equivalent way to do this in C++. The answer is yes. template is a keyword in C++, and when we place it before a function it turns it into a generic function. The syntax to create a generic function is template <typename T, …>. Similarly to Java, we use the angled brackets to specify our generic type. 
 
-*Note: T can be any valid name, which for C++ means it begins with a letter or an underscore, and contains only letters, digits, or underscores (not special characters or whitespaces). Valid names also exclude any reserved keywords. However, conventionally, type names have no underscores, start with a capital letter, and each new word also starts with a capital letter.*
+>###### *Note: T can be any valid name, which for C++ means it begins with a letter or an underscore, and contains only letters, digits, or underscores (not special characters or whitespaces). Valid names also exclude any reserved keywords. However, conventionally, type names have no underscores, start with a capital letter, and each new word also starts with a capital letter.*
 
 Let us see how the generic function in Java from before would look like in C++:
 To see this in action, let us look at some concrete examples using these functions. We will create three lists:
 
 Thanks to generics, not only can we call demoMultGenerics(int1, int2) on the same data type to compare the lengths of the two lists, but we can also call demoMultGenerics(int2, string1)! This is great because we can use the same code to compare the lengths of lists of different types without having to rewrite code.
 
-*Note: Unlike Java, we can pass any data type into the generic function, including basic data types, derived data types, and user defined data types. More information about why will be provided when we talk about what happens at compile time.*
+>###### *Note: Unlike Java, we can pass any data type into the generic function, including basic data types, derived data types, and user defined data types. More information about why will be provided when we talk about what happens at compile time.*
 
 #### Overloading Template Functions
 Overloading, or ad-hoc polymorphism, as we’ve learned in CSCC24, allows us to create functions with the same name that can do different things in their body. Overloading works similarly in C++ as in Java, as they are both explicitly typed languages, the function signature depends on not only the function name, number of params, but also on the type of the parameters.
@@ -77,6 +77,13 @@ Because every time we call these generic functions, it creates a concrete instan
 ## Conclusion: Recap of C++ Templates
 As we have learned, using generics in C++ is very similar to what we have seen before in Java. However, instead of utilizing the angles within the function/class declaration, we put template<typename T, …> before our function/class declaration. We can specify multiple generic different types, in that template declaration, and utilize a mixture of both concrete data types and generic types in our class or function.  Additionally, overloading can still be done as normal, but the compiler will also choose to use non-template functions over template functions. When utilizing the generics, the compiler will generate new classes with the actual types we input, which can possibly bloat up our executable, but it provides more type-safety by truly distinguishing between different usages of the template classes.
 
-
+## Sources
+- Polymorphism: CSCC24 Slides and Lectures by Professor Anya Tafliovich
+- Overloading Functions with Templates: https://www.ibm.com/docs/en/i/7.4?topic=only-overloading-function-templates-c
+- std-enable-if: https://medium.com/@sidbhasin82/c-templates-what-is-std-enable-if-and-how-to-use-it-fd76d3abbabe
+- Compilation: https://medium.com/coding-blocks/templates-in-c-vs-generics-in-java-3f820e633821
+- Abstract classes in C++: https://en.cppreference.com/w/cpp/language/abstract_class
+- C++ Type Traits: https://cplusplus.com/reference/type_traits/is_base_of/
+- Java Wildcards: https://docs.oracle.com/javase/tutorial/extra/generics/wildcards.html
 
 
