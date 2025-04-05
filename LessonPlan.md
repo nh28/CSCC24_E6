@@ -131,13 +131,27 @@ Here, we is_base_of constraint checks if T is a subclass of Animal. If T is a su
 
 ## Compilation of Templates
 For the most part, Java and C++, both of which are Object Oriented languages, have similar ways of implementing parametric polymorphism. However, one big difference between the two is what happens at compile time.
+
 First let's look at Java. Java uses type-erasure, which means that each time that the generic function or class is called, at compile time it is equivalent to if the generic type parameters were replaced with Object. Looking back at the function example in Java, at compile time it would look like this:
+```
+public static String demoMultGenerics(List<Object> lst1, List<Object> lst2) {
+if (lst1.size() > lst2.size()) { return "yes";
+} else { return "no";}}
+```
 Templates, on the other hand, generate new concrete functions or classes each time the template is called during compile time. It is almost like direct substitution and replaces all instances of that typename with the intended type, and then at run-time we no longer have the template, but rather the function or class with whatever type it was called with. Looking back at the function example in C++, at compile time it would look like this:
+```
+int demoGenerics(vector<int> lst){
+    return lst.size();
+}
+int demoGenerics(vector<string> lst){
+    return lst.size();
+}
+```
 When we call demoGenerics(int1) and demoGenerics(string1), what the compiler does is replaces the template with
 Because every time we call these generic functions, it creates a concrete instance based on the calling data type, this can cause the code’s size to become bloated, meaning that the code becomes relatively large. However, the advantage is that there is 100% type safety since each data type now has an explicit function/ class at runtime instead of all sharing a general function/ class.
 
 ## Conclusion: Recap of C++ Templates
-As we have learned, using generics in C++ is very similar to what we have seen before in Java. However, instead of utilizing the angles within the function/class declaration, we put template<typename T, …> before our function/class declaration. We can specify multiple generic different types, in that template declaration, and utilize a mixture of both concrete data types and generic types in our class or function.  Additionally, overloading can still be done as normal, but the compiler will also choose to use non-template functions over template functions. When utilizing the generics, the compiler will generate new classes with the actual types we input, which can possibly bloat up our executable, but it provides more type-safety by truly distinguishing between different usages of the template classes.
+As we have learned, using generics in C++ is very similar to what we have seen before in Java. However, instead of utilizing the angles within the function/class declaration, we put template<typename T, …> before our function/class declaration. We can specify multiple generic different types, in that template declaration, and utilize a mixture of both concrete data types and generic types in our class or function.  Additionally, overloading can still be done as normal, but the compiler will also choose to use non-template functions over template functions. Concepts also allow us to put restrains on what data types should be allowed to create an instance of a function. When utilizing the generics, the compiler will generate new classes with the actual types we input, which can possibly bloat up our executable, but it provides more type-safety by truly distinguishing between different usages of the template classes.
 
 ## Sources
 - Polymorphism: CSCC24 Slides and Lectures by Professor Anya Tafliovich
