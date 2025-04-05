@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class GenericsFunctions{
+public class GenericFunctions{
     public static void main(String[] args) {
         List<String> string1 = Arrays.asList(new String[] { "aaa", "bbb", "ccc", "ddd" });
         List<Integer> int1 = Arrays.asList(new Integer[] { 1, 2, 3 });
