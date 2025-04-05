@@ -103,7 +103,7 @@ public static void animalSounds1(List<? extends Animal> animals) {
         }}
 ```
 With wildcards, we can pass a List<Cat>, List<Dog>, List<Animal>, or any other subclasses that are instances of Animal! If we create a list with type T where T is not a subclass of Animal, it will throw a compile-time error:
-
+![Local Image](images/wildcard_error.png "Error in Java")
 
 The natural question now is does C++ have an equivalent way to create animalSounds1 so that only animal types get passed? Unfortunately, there is no direct equivalent of ? in C++, but we can utilize Constraints and Concepts, which are features for C++20. Constraints are conditions that template arguments must adhere to in order to use the specific code that defined the constraint. The set of requirements is what is called a Concept. Concepts are predicates, and when T is provided at compile time, it returns a truth value. The format of a concept is:
 ```
@@ -127,7 +127,7 @@ void animalSounds(const vector<T*>& animals) {
     }}
 ```
 Here, we is_base_of constraint checks if T is a subclass of Animal. If T is a subclass of Animal (is_base_of value is true), then we can create an instance of the function with type T. If, however, T is not a subclass of Animal, the compiler will throw an error and will not create an instance of the function with type T.
-
+![Local Image](images/concepts_error.png "Error in C++")
 
 ## Compilation of Templates
 For the most part, Java and C++, both of which are Object Oriented languages, have similar ways of implementing parametric polymorphism. However, one big difference between the two is what happens at compile time.
