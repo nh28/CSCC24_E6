@@ -80,18 +80,54 @@ As we can see in this class, it holds 3 generic data types, and 1 non generic da
 We instantiated our object multi to have instead of generic types, an int, a double, and a string. Then called multNum to multiply the last value in the tuple, by 5. Then we added some more values to our tuple. This affects our object just how we wanted, with an output like this
 
 ## Inheritance with Templates
-For this concept, let’s first define a general example. Say we have classes for a Dog and a Cat. Each class is a subclass of Animal (so a Dog and a Cat is an Animal). How can we incorporate subclassing in generics?
-A pure generic function would look like:
+For this concept, let’s first define a general example. Say we have classes for a Dog and a Cat. Each class is a subclass of Animal (so a Dog and a Cat is an Animal). How can we incorporate subclassing in generics in Java?
+A pure generic function would look like this:
+```
+public static <T> void animalSounds(List<T> animals) {
+        for(int i = 0; i < animals.size(); i++) {
+            System.out.println(animals.get(i).sound());
+        }}
+```
 However, we only want this to print the sound if T is an animal. Just using the generic T is a little too broad for our liking. To try and only print animal noises, our first approach would be to only allow lists of Animal.
-However, if we pass a List<Cat> (list of cats) into the function, although Cat is a subclass of Animal, List<Cat> is not an instance of List<Animal>. In Java, the way to solve this problem is to utilize wildcards. As a reminder, a wildcard in Java was specified by the symbol ‘?’. These were only used in functions, and the huge advantage of them is that it allowed us to write a function with greater flexibility. Unlike T, we can extend ?, which allows us to put constraints on what types of data types would be allowed. Now, our function looks like this:
+```
+public static void animalSounds(List<Animal> animals) {
+        for(int i = 0; i < animals.size(); i++) {
+            System.out.println(animals.get(i).sound());
+        }}
+```
+However, if we pass a List<Cat> (list of cats) into the function, although Cat is a subclass of Animal, List<Cat> is not an instance of List<Animal>. In Java, the way to solve this problem is to utilize wildcards. As a reminder, a wildcard in Java is specified by the symbol ‘?’. These were only used in functions, and the huge advantage of them is that it allowed us to write a function with greater flexibility. Unlike T, we can extend ?, which allows us to put constraints on what types of data types would be allowed. Now, our improved function looks like this:
+```
+public static void animalSounds1(List<? extends Animal> animals) {
+        for(int i = 0; i < animals.size(); i++) {
+            System.out.println(animals.get(i).sound());
+        }}
+```
+With wildcards, we can pass a List<Cat>, List<Dog>, List<Animal>, or any other subclasses that are instances of Animal! If we create a list with type T where T is not a subclass of Animal, it will throw a compile-time error:
 
-Now, we could pass a List<Cat>, List<Dog>, List<Animal>, or any other subclasses that are instances of Animal.
 
-The natural question is does C++ have an equivalent way to create animalSounds1 so that only animal types get passed? Unfortunately, there is no direct equivalent of ? in C++, but we can utilize enable_if and is_base_of, which are C++ built in functions. Here is the function in C++:
+The natural question now is does C++ have an equivalent way to create animalSounds1 so that only animal types get passed? Unfortunately, there is no direct equivalent of ? in C++, but we can utilize Constraints and Concepts, which are features for C++20. Constraints are conditions that template arguments must adhere to in order to use the specific code that defined the constraint. The set of requirements is what is called a Concept. Concepts are predicates, and when T is provided at compile time, it returns a truth value. The format of a concept is:
+```
+template <typename T [,...]>
+concept concept-name = constraint-expression::value;
 
-Here, we is_base_of checks if T is a subclass of Animal. If T is a subclass of Animal (is_base_of value is true), enable_if defines a typedef (an instance) of this function for the type T. 
+template <concept-name T>
+{ function code here }
+```
+>###### *Note: constraint-expression can be a conjunction (&&), disjunction (||), or atomic constraints. For more information, check out the link in the souces.
+Now, in our template, we can utilize the concept to restrict types to only be ones that meet the conditions of the respective concept concept-name refers to.
+Let us now create the animalSounds1 function in C++ using concepts:
+```
+template <typename T>
+concept IsAnimal = is_base_of<Animal, T>::value;
 
-Notice that If we try to call animalSounds on a list that are not animals, it will throw a compile time error in both C++ and Java (if no other overloaded function definitions handle our call). 
+template <IsAnimal T>
+void animalSounds(const vector<T*>& animals) {
+    for (const auto& animal : animals) {
+        cout << animal->sound() << endl;
+    }}
+```
+Here, we is_base_of constraint checks if T is a subclass of Animal. If T is a subclass of Animal (is_base_of value is true), then we can create an instance of the function with type T. If, however, T is not a subclass of Animal, the compiler will throw an error and will not create an instance of the function with type T.
+
 
 ## Compilation of Templates
 For the most part, Java and C++, both of which are Object Oriented languages, have similar ways of implementing parametric polymorphism. However, one big difference between the two is what happens at compile time.
@@ -106,7 +142,7 @@ As we have learned, using generics in C++ is very similar to what we have seen b
 ## Sources
 - Polymorphism: CSCC24 Slides and Lectures by Professor Anya Tafliovich
 - Overloading Functions with Templates: https://www.ibm.com/docs/en/i/7.4?topic=only-overloading-function-templates-c
-- std-enable-if: https://medium.com/@sidbhasin82/c-templates-what-is-std-enable-if-and-how-to-use-it-fd76d3abbabe
+- Constrains and Concepts: https://en.cppreference.com/w/cpp/language/constraints
 - Compilation: https://medium.com/coding-blocks/templates-in-c-vs-generics-in-java-3f820e633821
 - Abstract classes in C++: https://en.cppreference.com/w/cpp/language/abstract_class
 - C++ Type Traits: https://cplusplus.com/reference/type_traits/is_base_of/
