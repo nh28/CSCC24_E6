@@ -5,7 +5,7 @@
 Let us recall what parametric polymorphism (also known as generics) is. Parametric polymorphism allows us to write functions or classes without specifying a specific data type so that we can apply them to various data types without code repetition. 
 
 Let us recall how these generics in Java look like:
-- Generic functions in Java: to create a generic function in Java we must include angled brackets with one or more variables to specify generic types. For example,
+- Generic functions in Java: to create a generic function in Java we must include angled brackets with one or more variables to specify generic types. For example, let us look at the function demoGenerics. With generics in Java, demoGenerics can take Lists of any types, including two Lists of different types. For instance, we could call demoGenerics with List<String>, List<Integer>, or both!
 ```
  public static <T, U> String demoGenerics(List<T> lst1, List<U> lst2) {
         if (lst1.size() > lst2.size()) {
@@ -14,7 +14,6 @@ Let us recall how these generics in Java look like:
             return "no";
         }}
   ```
-With generics in Java, we are able to pass Lists of any types, including two Lists of different types. For example, if we called demoMultGenerics with a list of strings and a list of ints.
 - Generic classes in Java: Similarly, generic java classes, in our declaration of the name of our class we can add angled brackets to specify generic types. With java generics for classes, we can create objects with the same methods and data members, just using different types, but without repeating the code. Here is a simple example:
 
 >###### *Note: all types used in generics must be non-primitive types. More detail will be provided on why when we talk about what happens at compile time.*
@@ -28,19 +27,37 @@ We saw how we were able to create generic functions in Java, and now we want to 
 >###### *Note: T can be any valid name, which for C++ means it begins with a letter or an underscore, and contains only letters, digits, or underscores (not special characters or whitespaces). Valid names also exclude any reserved keywords. However, conventionally, type names have no underscores, start with a capital letter, and each new word also starts with a capital letter.*
 
 Let us see how the generic function in Java from before would look like in C++:
+```
+template <typename T, typename U>
+string demoGenerics(vector<T> lst1, vector<U> lst2){
+    if (lst1.size() > lst2.size()) {
+        return "yes";
+    } else {
+        return "no";
+    }}
+```
 To see this in action, let us look at some concrete examples using these functions. We will create three lists:
-
+```
+vector<int> int1 = {1, 2, 3};
+vector<int> int2 = {1, 2, 3, 4, 5};
+vector<string> string1 = {"aaa", "bbb", "ccc", "ddd"};
+```
 Thanks to generics, not only can we call demoMultGenerics(int1, int2) on the same data type to compare the lengths of the two lists, but we can also call demoMultGenerics(int2, string1)! This is great because we can use the same code to compare the lengths of lists of different types without having to rewrite code.
 
->###### *Note: Unlike Java, we can pass any data type into the generic function, including basic data types, derived data types, and user defined data types. More information about why will be provided when we talk about what happens at compile time.*
+>###### *Note: Unlike Java, which specify that data types used with Generics must be non-primitive, we can pass any data type into the generic function, including basic data types, derived data types, and user defined data types. More information about why will be provided when we talk about what happens at compile time.*
 
 #### Overloading Template Functions
 Overloading, or ad-hoc polymorphism, as we’ve learned in CSCC24, allows us to create functions with the same name that can do different things in their body. Overloading works similarly in C++ as in Java, as they are both explicitly typed languages, the function signature depends on not only the function name, number of params, but also on the type of the parameters.
 
 What happens then, with overloading functions that are defined generically? 
-Consider this example with the function foobar, the template function just outputs whatever value it was called with. The non template function (with an int parameter) always outputs  “foobar”. If I call this, what will the result be?
-
-This is the result. Despite foobar(12345) also matching the function signature for the template foobar, the compiler resolves the overloading by having non-template functions take precedence. Since foobar(“i am not foobar!”) does not match any other function signature except for the template foobar, that is the function that applies.
+Consider the example above with an additional function 
+```
+string demoGenerics(vector<int> lst1, vector<int> lst2){
+    return "Demo overloading!";
+}
+```
+Now, when I call demoGenerics(int1, int2), what will the result be? "Demo overloading!" will be returned!
+Despite demoGenerics(int1, int2) also matching the function signature for the template demoGenerics, the compiler resolves the overloading by having non-template functions take precedence. So, if we were to call demoGenerics(int1, string1), it does not match any other function signature except for the template demoGenerics, so that is the function that applies.
 
 ### Template Classes
 Creating generic classes in C++ is very similar to how we created generic functions. Once again, we use template. By having template<typename T, …> preceding any class, it becomes a generic class. 
