@@ -5,13 +5,16 @@
 Let us recall what parametric polymorphism (also known as generics) is. Parametric polymorphism allows us to write functions or classes without specifying a specific data type so that we can apply them to various data types without code repetition. 
 
 Let us recall how these generics in Java look like:
-- Generic functions in Java: to create a generic function in Java we must include angled brackets with one or more variables to specify generic types. For example, '''java public static <T, U> String demoGenerics(List<T> lst1, List<U> lst2) {
+- Generic functions in Java: to create a generic function in Java we must include angled brackets with one or more variables to specify generic types. For example,
+```
+ public static <T, U> String demoGenerics(List<T> lst1, List<U> lst2) {
         if (lst1.size() > lst2.size()) {
             return "yes";
         } else {
             return "no";
-        }
-    }''' With generics in Java, we are able to pass Lists of any types, including two Lists of different types. For example, if we called demoMultGenerics with a list of strings and a list of ints.
+        }}
+  ```
+With generics in Java, we are able to pass Lists of any types, including two Lists of different types. For example, if we called demoMultGenerics with a list of strings and a list of ints.
 - Generic classes in Java: Similarly, generic java classes, in our declaration of the name of our class we can add angled brackets to specify generic types. With java generics for classes, we can create objects with the same methods and data members, just using different types, but without repeating the code. Here is a simple example:
 
 >###### *Note: all types used in generics must be non-primitive types. More detail will be provided on why when we talk about what happens at compile time.*
