@@ -14,8 +14,28 @@ Let us recall how these generics in Java look like:
             return "no";
         }}
   ```
-- Generic classes in Java: Similarly, generic java classes, in our declaration of the name of our class we can add angled brackets to specify generic types. With java generics for classes, we can create objects with the same methods and data members, just using different types, but without repeating the code. Here is a simple example:
-
+- Generic classes in Java: Similarly, generic java classes, in our declaration of the name of our class we can add angled brackets to specify generic types. With java generics for classes, we can create objects with the same methods and data members, just using different types, but without repeating the code. The example below, can create an object that holds 2 lists of strings, or ints, or some other data type!
+```
+ public class TwoD<T>
+ {
+     public List<T> x;
+     public List<T> y;
+     TwoD(List<T> val1, List<T> val2)
+     {
+         x = val1;
+         y = val2;
+     }
+     public void swap()
+     {
+         List<T> temp = x;
+         x = y;
+         y = temp;
+     }
+     public void replacex(List<T> newx){
+         x = newx;
+     }
+ }
+```
 >###### *Note: all types used in generics must be non-primitive types. More detail will be provided on why when we talk about what happens at compile time.*
 
 ## Introduction to Templates: Generics in C++
@@ -56,23 +76,61 @@ string demoGenerics(vector<int> lst1, vector<int> lst2){
     return "Demo overloading!";
 }
 ```
-Now, when I call demoGenerics(int1, int2), what will the result be? "Demo overloading!" will be returned!
+Now, when I call demoGenerics(int1, int2), what will the result be? 
+"Demo overloading!" will be returned!
+
 Despite demoGenerics(int1, int2) also matching the function signature for the template demoGenerics, the compiler resolves the overloading by having non-template functions take precedence. So, if we were to call demoGenerics(int1, string1), it does not match any other function signature except for the template demoGenerics, so that is the function that applies.
 
 ### Template Classes
 Creating generic classes in C++ is very similar to how we created generic functions. Once again, we use template. By having template<typename T, …> preceding any class, it becomes a generic class. 
-On the left is a basic example of a template class. Its constructor takes in two values and assigns them to x and y respectively. 
+Below is a basic example of a template class. Its constructor takes in two vectors and assigns them to x and y respectively. There are 2 more additional functions, one that swaps the x and y vectors, and one that replaces the x vector with a different one.
 
-There is also another function that returns the value of x + y, and its return type is T. 
+    template <typename T>
+    class TwoD
+    {
+    public:
+        vector<T> x;
+        vector<T> y;
+        TwoD(vector<T> val1, vector<T> val2)
+        {
+            x = val1;
+            y = val2;
+        }
+        void swap()
+        {
+            vector<T> temp = x;
+            x = y;
+            y = temp;
+        }
+        void replacex(vector<T> newx)
+        {
+            x = newx;
+        }
+    }
 
-Let’s see some example usage of this. To actually use this class, just like how we saw in functions and how java generics work, we call the name of the class and provide in angled brackets the type we want to replace all instances of T with.
+Let’s see some example usage of this. To actually use this class, just like how we saw in functions and how java generics work, we call the name of the class and provide in angled brackets the type we want to replace all instances of T with. 
 
-In our main function, we first instantiated two objects, one with ints 1, 2, and one with strings “foo”, “bar”. See how we substituted T with int and string when referring to the type of our object. 
-Then we output the value of each object’s x and y, and then the result of using the + operator. 
+In our main function, we first instantiated two objects, one object with 2 int vectors {1, 2, 3, 4, 5}, {6, 7, 8}, and one object with 2 string vectors {"abcd", "efg"}, {"qrs", "tuv", "wx", "yz"}. See below how we substituted T with int and string when referring to the type of our object. 
 
-This outputs
+    TwoD<int> myints({1, 2, 3, 4, 5}, {6, 7, 8});
+    TwoD<string> mystrings({"abcd", "efg"}, {"qrs", "tuv", "wx", "yz"});
+We can also apply the swap function to either of these objects, as well as the replacex function. Let's try swapping the x and y for the integer object, and replacing the x for the string object, depicted below.
 
-Which is exactly what we wanted! Now we only needed to create 1 class instead of multiple for this type of object we wanted to make (holds 2 data members, and can use the + operator on them).
+    myints.swap();
+    mystrings.replacex({"hijk", "lm", "no", "p"});
+
+At each step, we will output each of the objects, and below is the result.
+
+    myints is:
+     x:[ 1 2 3 4 5 ], y:[ 6 7 8 ]
+    mystrings is:
+     x:[ abcd efg ], y:[qrs tuv wx yz ]
+    myints after swapping:
+     x:[ 6 7 8 ], y:[ 1 2 3 4 5 ]
+    mystrings after replacing x:
+     x:[ hijk lm no p ], y:[ qrs tuv wx yz ]
+
+Which is exactly what we wanted! Now we only needed to create 1 class instead of multiple for this type of object we wanted to make (holds 2 vector data members, can swap the x and y, and can replace the x vector).
 
 Additionally, within a template class, one can use both the generic type T, and also existing concrete types. So we can have generic data members as well as concrete data members. We can also have concrete functions as well as generic functions. Furthermore, can have more than one template parameter. We can see another example on the left, with these complexities. This class represents a quadruple, where each value in the tuple is able to use the + operator. 
 As we can see in this class, it holds 3 generic data types, and 1 non generic data type (int). It also has a generic function addVals and a nongeneric function multNum. This is perfectly fine in C++, and everything works as expected. Here is an example usage of this class.
@@ -155,6 +213,7 @@ As we have learned, using generics in C++ is very similar to what we have seen b
 
 ## Sources
 - Polymorphism: CSCC24 Slides and Lectures by Professor Anya Tafliovich
+- C++ Templates: https://en.cppreference.com/w/cpp/language/templates
 - Overloading Functions with Templates: https://www.ibm.com/docs/en/i/7.4?topic=only-overloading-function-templates-c
 - Constrains and Concepts: https://en.cppreference.com/w/cpp/language/constraints
 - Compilation: https://medium.com/coding-blocks/templates-in-c-vs-generics-in-java-3f820e633821
