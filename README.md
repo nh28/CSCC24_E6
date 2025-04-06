@@ -6,7 +6,26 @@ The code provided is intended to help students understand the concepts of what g
 ## Instructions on how to run the code
 
 ### Java files
+Files included are:
+- Generic functions
+  - GenericFunctions.java
+- Generic classes
+  - [FILL IN]
+- Inheritence
+  - Animal.java
+  - Cat.java
+  - Dog.java
+  - Inheritence.java
+ 
 
 ### C++ files
+Files included are:
+- Generic functions
+  - GenericFunctionss.cpp
+- Generic classes
+  - [FILL IN]
+- Inheritence
+  - Inheritence.cpp
+  
 
 
