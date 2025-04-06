@@ -16,13 +16,13 @@ Files to run:
 How to run:
 - Open the terminal and navigate to the folder that the code is stored.
 - Compile the Java code using the javac command. This will generate a .class file in the same directory as you .java file.
-  - ```
-    javac filename.java
-    ```
+```
+javac filename.java
+```
 - Run the java program using the java command.
-  - ```
-    java filename
-    ```
+```
+java filename
+```
 - The output will appear in the terminal.
 
 ### C++ files
