@@ -6,17 +6,24 @@ The code provided is intended to help students understand the concepts of what g
 ## Instructions on how to run the code
 
 ### Java files
-Files included are:
-- Generic functions
-  - GenericFunctions.java
-- Generic classes
-  - [FILL IN]
-- Inheritence
-  - Animal.java
-  - Cat.java
-  - Dog.java
-  - Inheritence.java
- 
+Files to run:
+- GenericFunctions.java
+- [FILL IN CLASS FILES]
+- Inheritence.java
+
+ >###### *Note: make sure that Java JDK is installed. For instructions, consult https://www.oracle.com/java/technologies/downloads/.
+
+How to run:
+- Open the terminal and navigate to the folder that the code is stored.
+- Compile the Java code using the javac command. This will generate a .class file in the same directory as you .java file.
+  - ```
+    javac filename.java
+    ```
+- Run the java program using the java command.
+  - ```
+    java filename
+    ```
+- The output will appear in the terminal.
 
 ### C++ files
 Files included are:
