@@ -83,7 +83,7 @@ Despite demoGenerics(int1, int2) also matching the function signature for the te
 
 ### Template Classes
 Creating generic classes in C++ is very similar to how we created generic functions. Once again, we use template. By having template<typename T, …> preceding any class, it becomes a generic class. 
-Below is a basic example of a template class. Its constructor takes in two vectors and assigns them to x and y respectively. There are 2 more additional functions, one that swaps the x and y vectors, and one that replaces the x vector with a different one.
+Below is a basic example of a template class that is equivalent to the java generic class shown in the introduction. Its constructor takes in two vectors and assigns them to x and y respectively. There are 2 more additional functions, one that swaps the x and y vectors, and one that replaces the x vector with a different one.
 
     template <typename T>
     class TwoD
@@ -132,10 +132,76 @@ At each step, we will output each of the objects, and below is the result.
 
 Which is exactly what we wanted! Now we only needed to create 1 class instead of multiple for this type of object we wanted to make (holds 2 vector data members, can swap the x and y, and can replace the x vector).
 
-Additionally, within a template class, one can use both the generic type T, and also existing concrete types. So we can have generic data members as well as concrete data members. We can also have concrete functions as well as generic functions. Furthermore, can have more than one template parameter. We can see another example on the left, with these complexities. This class represents a quadruple, where each value in the tuple is able to use the + operator. 
-As we can see in this class, it holds 3 generic data types, and 1 non generic data type (int). It also has a generic function addVals and a nongeneric function multNum. This is perfectly fine in C++, and everything works as expected. Here is an example usage of this class.
+Additionally, within a template class, one can use both generic types, and also existing concrete types. So we can have generic data members as well as concrete data members as well as concrete functions and  generic functions. Furthermore, can have more than one template parameter. We can see another example on the below, with these complexities. This class represents 2 vectors, with an id attached to them.
 
-We instantiated our object multi to have instead of generic types, an int, a double, and a string. Then called multNum to multiply the last value in the tuple, by 5. Then we added some more values to our tuple. This affects our object just how we wanted, with an output like this
+    template <typename T, typename U>
+    class TwoVec
+    {
+    public:
+        int id;
+        vector<T> x;
+        vector<U> y;
+    
+        TwoVec(int newid, vector<T> val1, vector<U> val2)
+        {
+            x = val1;
+            y = val2;
+            id = newid;
+        }
+        void replacexy(vector<T> otherx, vector<U> othery)
+        {
+            x = otherx;
+            y = othery;
+        }
+        void changeid(int newid)
+        {
+            id = newid;
+        }
+        void addid(int other)
+        {
+            id += other;
+        }
+    }
+
+As we can see in the above class, it holds 2 generic data types, and 1 non generic data type (int). It also has a generic function replacexy and two non-generic functions changid and addid. This is perfectly fine in C++, and everything works as expected. Here is an example usage of this class.
+
+    TwoVec<int, string> multi(1234, {12, 34, 5, 6789}, {"foo", "bar", "foobar"});
+
+We instantiated our object multi to have instead of generic types, a vector of ints and a vector of strings. 
+
+    multi.replacexy({123}, {"foobar"});
+    multi.addid(1111);
+    
+We then made some changes by calling replacexy and addid to replace the two vectors with 2 new ones, and add 1111 to the existing id in multi. Below, we can see the outputs as expected.
+
+    multi is:
+    id: 1234
+    x:[ 12 34 5 6789 ], y:[ foo bar foobar  ]
+    new multi is:
+    id: 2345
+    x: [ 123 ], y: [ foobar ] 
+
+Note that this TwoVec class is very similar to the above class TwoD, but there is an important difference between them. Despite the type "T" shown in the class TwoD being a generic type, we cannot make x and y of different types as they are both type "T" in the class, and once instantiated, will still have to remain the same type. 
+
+Let's see what will happen if we try to create an object of class TwoD with x being an int and y being a string. For show, let's try it with both T being int and T being string; regardless they will end up with the same errors.
+
+    TwoD<string> IntsAndStrings1({123}, {"foo"});
+    TwoD<int> IntsAndStrings2({123}, {"foo"});
+Attempting to run this, results in an error
+
+![image](https://github.com/user-attachments/assets/2609ede6-bc69-4161-aea1-3e7a30f174f5)
+
+![image](https://github.com/user-attachments/assets/c48a1dac-7007-489a-a717-824438807f17)
+
+Since the constructor for class TwoD expects 2 arguments of the same type, T, despite T being generic and being able to be any type, it cannot be different types in the same instance.
+
+This is different with the TwoVec class, where now we can, as demonstrated, put both vectors of ints and strings inside (but we can also put two of the same type as well). However, there is now a different issue where we can not make certain functions like the swap function in TwoD. This is because the swap function as depicted simply switches the vectors for our x and y value. That worked in TwoD, since the x and y were of the same vector type, however, since the type of x and y are different in TwoVec, this cannot be done. 
+
+If we used the earlier multi object again as an example, x would have a type of vector<int> and y would have a type of vector<string>, so if we tried to swap them we would then be declaring that x with a value of a string vector is of type vector<int> which would not be true. If we try to add in the swap function, it will not cause an error, but if we attempted to use call it with the object multi, the below error occurs.
+
+![image](https://github.com/user-attachments/assets/65045165-dc66-40fc-af28-5b0a65832597)
+
+What this is saying is that there is an error in the swap function as there is no operator definition of "=" for a vector<string> and a vector<int>.
 
 ## Inheritance with Templates
 For this concept, let’s first define a general example. Say we have classes for a Dog and a Cat. Each class is a subclass of Animal (so a Dog and a Cat is an Animal). How can we incorporate subclassing in generics in Java?
