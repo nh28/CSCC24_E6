@@ -5,11 +5,17 @@ The code provided is intended to help students understand the concepts of what g
 
 ## Instructions on how to run the code
 
+For all files, please download them first before attempting to run them!
+
+>###### *Note: Wherever it says filename, that means to replace with the name of the file intended to be run. For example, if you want to run TwoD.java, instead of typing javac filename.java, instead type javac TwoD.java
+
 ### Java files
 Files to run:
 - GenericFunctions.java
-- [FILL IN CLASS FILES]
+- TwoD.java
 - Inheritence.java
+
+For the Inheritence.java file, if you want to run this file, please also make sure the Animal.java, Cat.java, and Dog.java files are installed as well and placed in the same directory as the Inheritence.java file.
 
  >###### *Note: make sure that Java JDK is installed. For instructions, consult https://www.oracle.com/java/technologies/downloads/.
 
@@ -28,7 +34,8 @@ How to run:
 ### C++ files
 Files to run:
 - GenericFunctionss.cpp
-- [FILL IN CLASS FILES]
+- ClassEx1.cpp
+- ClassEx2.cpp
 - Inheritence.cpp
 
  >###### *Note: make sure that g++ version 11+ is installed (the latest version is 14.2.0). This is to ensure that we can use C++20 features. If this is not installed, download MinGW-W64-builds from https://www.mingw-w64.org/downloads/, and add mingw64 to your PATH. To check whether the right version is installed, on the terminal type "g++ --version"
