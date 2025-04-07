@@ -13,9 +13,9 @@ For all files, please download them first before attempting to run them!
 Files to run:
 - GenericFunctions.java
 - TwoD.java
-- Inheritence.java
+- Inheritance.java
 
-For the Inheritence.java file, if you want to run this file, please also make sure the Animal.java, Cat.java, and Dog.java files are installed as well and placed in the same directory as the Inheritence.java file.
+For the Inheritance.java file, if you want to run this file, please also make sure the Animal.java, Cat.java, and Dog.java files are installed as well and placed in the same directory as the Inheritance.java file.
 
  >###### *Note: make sure that Java JDK is installed. For instructions, consult https://www.oracle.com/java/technologies/downloads/.
 
@@ -36,7 +36,7 @@ Files to run:
 - GenericFunctionss.cpp
 - ClassEx1.cpp
 - ClassEx2.cpp
-- Inheritence.cpp
+- Inheritance.cpp
 
  >###### *Note: make sure that g++ version 11+ is installed (the latest version is 14.2.0). This is to ensure that we can use C++20 features. If this is not installed, download MinGW-W64-builds from https://www.mingw-w64.org/downloads/, and add mingw64 to your PATH. To check whether the right version is installed, on the terminal type "g++ --version"
 
