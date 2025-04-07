@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Inheritence {
+public class Inheritance {
     public static void main(String[] args) {
         Dog indigo = new Dog("Indigo","labradoodle");
         Cat louis = new Cat("Louis", "tuxedo cat");
@@ -22,7 +22,7 @@ public class Inheritence {
         
         // animalSoundsBad(animals);
         // animalSoundsBad(cats); does not work because List<Cat> /= List<Animal> 
-        System.out.println("These are examples on how we can use inheritence in Java: ");
+        System.out.println("These are examples on how we can use inheritance in Java: ");
         System.out.println("There are two Cats objects, Louis and Jellybean, and one Dog object, Indigo. Both Cat and Dog are instances of Animal.");
         System.out.println("\nThe sounds of the list of Animals: {Indigo, Louis, Jellybean}");
         animalSounds(animals);
