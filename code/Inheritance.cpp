@@ -58,7 +58,7 @@ int main() {
     vector<Cat*> cats = {&louis, &jellybean};
     vector<int> ints = {1,2,3,4};
 
-    cout << "These are examples on how we can use inheritence in C++ using Concpets:" << endl;
+    cout << "These are examples on how we can use inheritance in C++ using Concpets:" << endl;
     cout << "There are two Cats objects, Louis and Jellybean, and one Dog object, Indigo. Both Cat and Dog are instances of Animal." << endl;
     cout << "\nThe sounds of the list of Animals: {Indigo, Louis, Jellybean}" << endl;
 
